@@ -429,18 +429,12 @@ shape = SubResource("CircleShape2D_n7863")
 script = ExtResource("5_y54j8")
 starting_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state")]
+[node name="idle" type="Node" parent="state_machine"]
 script = ExtResource("6_js8kr")
-move_state = NodePath("../move")
 animation_up = "idle_up"
 animation_down = "idle_down"
 animation_left = "idle_left"
 animation_right = "idle_right"
 
-[node name="move" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state")]
+[node name="move" type="Node" parent="state_machine"]
 script = ExtResource("7_eheft")
-idle_state = NodePath("../idle")
-animation_up = "walk_up"
-animation_down = "walk_down"
-animation_left = "walk_left"
-animation_right = "walk_right"

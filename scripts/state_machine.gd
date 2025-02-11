@@ -21,7 +21,11 @@ func change_state(new_state: State) -> void:
 		current_state.exit()
 	current_state = new_state
 	current_state.enter()
-
+	
+func process_input(event: InputEvent) -> void:
+	var new_state = current_state.process_input(event)
+	if new_state:
+		change_state(new_state)
 #passthrough functions for the player to call, handling state change as needed
 func process_physics(delta: float) -> void:
 	var new_state = current_state.process_physics(delta)
@@ -33,7 +37,3 @@ func process_frame(delta: float) -> void:
 	if new_state:
 		change_state(new_state)
 		
-func process_input(event: InputEvent) -> void:
-	var new_state = current_state.process_input(event)
-	if new_state:
-		change_state(new_state)

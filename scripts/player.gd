@@ -11,6 +11,8 @@ var animations = $Animations
 @onready
 var state_machine = $state_machine
 
+
+
 func _ready() -> void:
 	state_machine.init(self)
 	
