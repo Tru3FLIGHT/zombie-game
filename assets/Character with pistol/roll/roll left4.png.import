@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://d3vcnx7ahedis"
+path="res://.godot/imported/roll left4.png-8ab69392021bc7a3e3d0b902c4a2de0d.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/Character with pistol/roll/roll left4.png"
+dest_files=["res://.godot/imported/roll left4.png-8ab69392021bc7a3e3d0b902c4a2de0d.ctexarray"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=8
+slices/vertical=8

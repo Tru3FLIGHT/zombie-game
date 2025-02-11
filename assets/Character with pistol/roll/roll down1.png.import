@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://jhulq8p66nst"
+path="res://.godot/imported/roll down1.png-8573363af9dd7fc7e0d6a9f05b019c23.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/Character with pistol/roll/roll down1.png"
+dest_files=["res://.godot/imported/roll down1.png-8573363af9dd7fc7e0d6a9f05b019c23.ctexarray"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=8
+slices/vertical=8

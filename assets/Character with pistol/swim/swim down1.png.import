@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://6n6rb7wy136e"
+path="res://.godot/imported/swim down1.png-386cc1fc85b3c0afc402971f8763933d.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/Character with pistol/swim/swim down1.png"
+dest_files=["res://.godot/imported/swim down1.png-386cc1fc85b3c0afc402971f8763933d.ctexarray"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=8
+slices/vertical=8

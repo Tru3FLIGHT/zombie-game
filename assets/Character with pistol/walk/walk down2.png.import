@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://qq0ueqnat3rq"
+path="res://.godot/imported/walk down2.png-c2ee43ee22afd0fe9bc22a8e03a97598.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/Character with pistol/walk/walk down2.png"
+dest_files=["res://.godot/imported/walk down2.png-c2ee43ee22afd0fe9bc22a8e03a97598.ctexarray"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=8
+slices/vertical=8
