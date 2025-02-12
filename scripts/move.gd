@@ -6,10 +6,12 @@ var idle_state: State
 var attack_state: State
 
 var target_direction: Vector2
-
+var input_direction: Vector2
+var direction: Vector2
 
 func enter():
 	super()
+	print("move")
 
 func process_input(event: InputEvent) -> State:
 	target_direction.x = 0
@@ -21,16 +23,29 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	var input_direction := Input.get_vector("walk_left", "walk_right", "walk_up", "walk_down") 
-	var direction := (parent.transform * input_direction).normalized()
+	input_direction = Input.get_vector("walk_left", "walk_right", "walk_up", "walk_down") 
+	direction = ((parent.transform.x * input_direction.x) + (parent.transform.y * input_direction.y)).normalized()
 	if direction:
 		parent.velocity.x = direction.x * move_speed
 		parent.velocity.y = direction.y * move_speed
-	else:
-		parent.velocity.x = 0
-		parent.velocity.y = 0
-	print(parent.velocity)
+	#print(parent.velocity)
 	parent.move_and_slide()
+	return null
+	
+func process_frame(delta:float) -> State:
+	if direction:
+		if direction.x != 0:
+			if direction.x < 0:
+				parent.facing_direction = parent.facing.LEFT
+			else:
+				parent.facing_direction = parent.facing.RIGHT
+		elif direction.y < 0:
+			parent.facing_direction = parent.facing.UP
+		elif direction.y > 0:
+			parent.facing_direction = parent.facing.DOWN
+		else :
+			return null
+		parent.animations.play(directional_anim())
 	return null
 
 func is_movement_action() -> bool:

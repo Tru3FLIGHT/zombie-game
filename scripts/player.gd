@@ -10,7 +10,8 @@ var facing_direction := facing.DOWN
 var animations = $Animations
 @onready
 var state_machine = $state_machine
-
+@onready 
+var raycast: RayCast2D = $raycast
 
 
 func _ready() -> void:
@@ -21,6 +22,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
+	raycast.process_physics(facing_direction)
 	
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dcmhj1u8e1dyn"]
+[gd_scene load_steps=58 format=3 uid="uid://dcmhj1u8e1dyn"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_v8xtx"]
 [ext_resource type="Texture2D" uid="uid://echfc6kbatp2" path="res://assets/Character with pistol/idle/Idle_sprites.png" id="1_vrbr7"]
@@ -7,8 +7,6 @@
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="5_y54j8"]
 [ext_resource type="Script" path="res://scripts/idle.gd" id="6_js8kr"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="7_eheft"]
-[ext_resource type="Script" path="res://scripts/ray_cast_2d.gd" id="8_jj5gu"]
-[ext_resource type="Script" path="res://scripts/attack.gd" id="8_vcq8l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3r8q"]
 atlas = ExtResource("1_vrbr7")
@@ -418,44 +416,33 @@ script = ExtResource("1_v8xtx")
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_5bacq")
-animation = &"walk_up"
+animation = &"shoot_left"
+frame = 3
+frame_progress = 1.0
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 5)
-rotation = -0.95644
 shape = SubResource("CircleShape2D_n7863")
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("5_y54j8")
 starting_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state")]
+[node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state")]
 script = ExtResource("6_js8kr")
 move_state = NodePath("../move")
-attack_state = NodePath("../attack")
 animation_up = "idle_up"
 animation_down = "idle_down"
 animation_left = "idle_left"
 animation_right = "idle_right"
+move_speed = null
 
-[node name="move" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "attack_state")]
+[node name="move" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state")]
 script = ExtResource("7_eheft")
 idle_state = NodePath("../idle")
-attack_state = NodePath("../attack")
 animation_up = "walk_up"
 animation_down = "walk_down"
 animation_left = "walk_left"
 animation_right = "walk_right"
-
-[node name="attack" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("8_vcq8l")
-idle_state = NodePath("../idle")
-move_state = NodePath("../move")
-animation_up = "shoot_up"
-animation_down = "shoot_down"
-animation_left = "shoot_left"
-animation_right = "shoot_right"
-
-[node name="raycast" type="RayCast2D" parent="."]
-target_position = Vector2(0, 23)
-script = ExtResource("8_jj5gu")
+move_speed = null

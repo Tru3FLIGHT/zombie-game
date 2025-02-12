@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://coq7f8w40ey6g"]
+[gd_scene load_steps=3 format=3 uid="uid://coq7f8w40ey6g"]
 
 [ext_resource type="PackedScene" uid="uid://dcmhj1u8e1dyn" path="res://scenes/player.tscn" id="1_lioq3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pray0"]
+distance = -360.0
 
 [node name="world" type="Node"]
 
@@ -8,3 +11,32 @@
 zoom = Vector2(0.9, 0.9)
 
 [node name="player" parent="." instance=ExtResource("1_lioq3")]
+
+[node name="world boundry" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="world boundry"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world boundry/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_pray0")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="world boundry"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world boundry/StaticBody2D2"]
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_pray0")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="world boundry"]
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world boundry/StaticBody2D3"]
+position = Vector2(-1.22829e-05, -281)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_pray0")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="world boundry"]
+rotation = 4.71239
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="world boundry/StaticBody2D4"]
+position = Vector2(-1.22829e-05, -281)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_pray0")

@@ -1,6 +1,6 @@
 extends Node
 
-
+@onready var move: Node = $move
 @export
 var starting_state: State
 
@@ -12,8 +12,8 @@ func init(parent: Player) -> void:
 	for child in get_children():
 		child.parent = parent
 		
-		#init default state
-		change_state(starting_state)
+	#init default state
+	change_state(starting_state)
 
 func change_state(new_state: State) -> void:
 	#change the state by first calling exit logic on the state, then calling enter logic on new state
@@ -37,3 +37,5 @@ func process_frame(delta: float) -> void:
 	if new_state:
 		change_state(new_state)
 		
+func get_direction() -> Vector2:
+	return move.direction
