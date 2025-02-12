@@ -1,14 +1,27 @@
-extends Node2D
+extends CharacterBody2D
 
-var SPEED = 40.0
+var SPEED = 1000
 @onready var node_2d: Node2D = $"."
 @onready var line_2d: Line2D = $Line2D
+var direction: int
+var d: Vector2
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@onready var timer: Timer = $Timer
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	position += transform * Vector2(0,SPEED) * delta
+	match direction:
+		0: d = Vector2.LEFT
+		1: d = Vector2.RIGHT
+		2: d = Vector2.UP
+		3: d = Vector2.DOWN
+	print(d)
+	position += d * SPEED * delta
+	move_and_slide()
+	
+
+func _on_timer_timeout() -> void:
+	print("bullet_deleted")
+	queue_free()

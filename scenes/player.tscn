@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dcmhj1u8e1dyn"]
+[gd_scene load_steps=59 format=3 uid="uid://dcmhj1u8e1dyn"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_v8xtx"]
 [ext_resource type="Texture2D" uid="uid://echfc6kbatp2" path="res://assets/Character with pistol/idle/Idle_sprites.png" id="1_vrbr7"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="5_y54j8"]
 [ext_resource type="Script" path="res://scripts/idle.gd" id="6_js8kr"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="7_eheft"]
-[ext_resource type="Script" path="res://scripts/ray_cast_2d.gd" id="8_jj5gu"]
 [ext_resource type="Script" path="res://scripts/attack.gd" id="8_vcq8l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3r8q"]
@@ -455,7 +454,3 @@ animation_up = "shoot_up"
 animation_down = "shoot_down"
 animation_left = "shoot_left"
 animation_right = "shoot_right"
-
-[node name="raycast" type="RayCast2D" parent="."]
-target_position = Vector2(0, 23)
-script = ExtResource("8_jj5gu")

@@ -11,7 +11,7 @@ var direction: Vector2
 
 func enter():
 	super()
-	print("move")
+	#print("move")
 
 func process_input(event: InputEvent) -> State:
 	target_direction.x = 0
