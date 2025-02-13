@@ -1,13 +1,13 @@
 [gd_scene load_steps=60 format=3 uid="uid://dcmhj1u8e1dyn"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_v8xtx"]
 [ext_resource type="Texture2D" uid="uid://echfc6kbatp2" path="res://assets/Character with pistol/idle/Idle_sprites.png" id="1_vrbr7"]
+[ext_resource type="Script" path="res://scripts/Moveable.gd" id="1_vt2qa"]
 [ext_resource type="Texture2D" uid="uid://cefumx1gubw42" path="res://assets/Character with pistol/attack/shoot_sheet.png" id="2_v3ye7"]
 [ext_resource type="Texture2D" uid="uid://bqxllu8vpoq3t" path="res://assets/Character with pistol/walk/walking_sheet.png" id="3_fm5yi"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="5_y54j8"]
 [ext_resource type="Script" path="res://scripts/idle.gd" id="6_js8kr"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="7_eheft"]
-[ext_resource type="Script" path="res://scripts/attack.gd" id="8_vcq8l"]
+[ext_resource type="Script" path="res://scripts/shoot.gd" id="8_tndut"]
 [ext_resource type="Script" path="res://scripts/player_interface.gd" id="9_qcn3n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3r8q"]
@@ -410,25 +410,23 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n7863"]
-radius = 15.5242
+radius = 4.12311
 
 [node name="player" type="CharacterBody2D"]
-script = ExtResource("1_v8xtx")
+scale = Vector2(4, 4)
+script = ExtResource("1_vt2qa")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
-scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_5bacq")
-animation = &"walk_up"
+animation = &"idle_down"
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
-rotation = -0.95644
+position = Vector2(0, 1.25)
 shape = SubResource("CircleShape2D_n7863")
 
-[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state", "i_interface")]
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("5_y54j8")
 starting_state = NodePath("idle")
-i_interface = NodePath("../input_interface")
 
 [node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state")]
 script = ExtResource("6_js8kr")
@@ -450,7 +448,7 @@ animation_right = "walk_right"
 move_speed = 17000.0
 
 [node name="attack" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("8_vcq8l")
+script = ExtResource("8_tndut")
 idle_state = NodePath("../idle")
 move_state = NodePath("../move")
 animation_up = "shoot_up"

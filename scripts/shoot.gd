@@ -12,7 +12,7 @@ var instance
 func enter() -> void:
 	super()
 
-func process_physics(delta:float) -> State:
+func process_physics(_delta:float) -> State:
 	instance = bullet.instantiate()
 	instance.position = parent.global_position
 	instance.direction = parent.facing_direction
@@ -22,6 +22,6 @@ func process_physics(delta:float) -> State:
 	
 	
 func determine_return() -> State:
-	if parent.velocity.x == 0 and parent.velocity.y == 0:
-		return move_state
-	return idle_state
+	if Vector2.ZERO:
+		return idle_state
+	return move_state

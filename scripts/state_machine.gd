@@ -3,14 +3,12 @@ extends Node
 
 @export
 var starting_state: State
-@export
-var i_interface: input_interface
 
 var current_state: State
 
 #initialize, we give the children references to the parent/root node, this is normally poor
 #implomentation but the nodes act as indivisual player scripts so we allow it in this instance
-func init(parent: CharacterBody2D, animations: AnimatedSprite2D) -> void:
+func init(parent: CharacterBody2D, animations: AnimatedSprite2D, i_interface:input_interface) -> void:
 	for child in get_children():
 		child.parent = parent
 		child.animations = animations

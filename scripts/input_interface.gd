@@ -8,6 +8,4 @@ func get_movement_direction() -> Vector2:
 
 func attack_input() -> bool:
 	return false
-
-
 	

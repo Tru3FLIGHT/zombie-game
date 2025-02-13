@@ -1,4 +1,4 @@
-class_name Player
+class_name Moveable
 extends CharacterBody2D
 
 enum facing {LEFT, RIGHT, UP, DOWN}
@@ -10,9 +10,11 @@ var facing_direction := facing.DOWN
 var animations = $Animations
 @onready
 var state_machine = $state_machine
+@onready
+var i_interface: Node = $input_interface
 
 func _ready() -> void:
-	state_machine.init(self, animations)
+	state_machine.init(self, animations, i_interface)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)

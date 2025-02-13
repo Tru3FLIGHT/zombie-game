@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://coq7f8w40ey6g"]
+[gd_scene load_steps=4 format=3 uid="uid://coq7f8w40ey6g"]
 
 [ext_resource type="PackedScene" uid="uid://dcmhj1u8e1dyn" path="res://scenes/player.tscn" id="1_lioq3"]
+[ext_resource type="PackedScene" uid="uid://c5w76qm7y53lo" path="res://scenes/zombie.tscn" id="2_pko1o"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pray0"]
 distance = -360.0
@@ -40,3 +41,7 @@ rotation = 4.71239
 position = Vector2(-1.22829e-05, -281)
 rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_pray0")
+
+[node name="zombie" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_pko1o")]
+position = Vector2(-590, -315)
+target = NodePath("../player")
