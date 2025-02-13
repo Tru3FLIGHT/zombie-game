@@ -19,6 +19,15 @@ config/icon="res://icon.svg"
 
 window/stretch/mode="viewport"
 
+[file_customization]
+
+folder_colors={
+"res://scripts/entities/": "red",
+"res://scripts/game logic/": "orange",
+"res://scripts/input_interface/": "yellow",
+"res://scripts/state_machine/": "green"
+}
+
 [input]
 
 walk_up={

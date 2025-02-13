@@ -1,16 +1,16 @@
 [gd_scene load_steps=67 format=3 uid="uid://dcmhj1u8e1dyn"]
 
+[ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_kf212"]
 [ext_resource type="Texture2D" uid="uid://echfc6kbatp2" path="res://assets/Character with pistol/idle/Idle_sprites.png" id="1_vrbr7"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_xwflt"]
 [ext_resource type="Texture2D" uid="uid://dw48y5vmg8pxa" path="res://assets/Character with pistol/death/death_sheet.png" id="2_81afk"]
 [ext_resource type="Texture2D" uid="uid://cefumx1gubw42" path="res://assets/Character with pistol/attack/shoot_sheet.png" id="2_v3ye7"]
 [ext_resource type="Texture2D" uid="uid://bqxllu8vpoq3t" path="res://assets/Character with pistol/walk/walking_sheet.png" id="3_fm5yi"]
-[ext_resource type="Script" path="res://scripts/state_machine.gd" id="5_y54j8"]
-[ext_resource type="Script" path="res://scripts/idle.gd" id="6_js8kr"]
-[ext_resource type="Script" path="res://scripts/move.gd" id="7_eheft"]
-[ext_resource type="Script" path="res://scripts/shoot.gd" id="8_tndut"]
-[ext_resource type="Script" path="res://scripts/player_interface.gd" id="9_qcn3n"]
-[ext_resource type="Script" path="res://scripts/death.gd" id="9_swn0d"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="6_j7nmv"]
+[ext_resource type="Script" path="res://scripts/state_machine/idle.gd" id="7_5kkoe"]
+[ext_resource type="Script" path="res://scripts/state_machine/move.gd" id="8_2518h"]
+[ext_resource type="Script" path="res://scripts/state_machine/shoot.gd" id="9_4biwt"]
+[ext_resource type="Script" path="res://scripts/state_machine/death.gd" id="10_kvod2"]
+[ext_resource type="Script" path="res://scripts/input_interface/player_interface.gd" id="11_o3nfk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0rxvq"]
 atlas = ExtResource("2_81afk")
@@ -452,7 +452,7 @@ radius = 3.75
 
 [node name="player" type="CharacterBody2D"]
 scale = Vector2(4, 4)
-script = ExtResource("1_xwflt")
+script = ExtResource("1_kf212")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5bacq")
@@ -466,40 +466,33 @@ shape = SubResource("CircleShape2D_c8ib1")
 [node name="colison_box" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n7863")
 
-[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("5_y54j8")
-starting_state = NodePath("idle")
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource("6_j7nmv")
 
-[node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state")]
-script = ExtResource("6_js8kr")
-move_state = NodePath("../move")
-attack_state = NodePath("../attack")
+[node name="idle" type="Node" parent="state_machine"]
+script = ExtResource("7_5kkoe")
 animation_up = "idle_up"
 animation_down = "idle_down"
 animation_left = "idle_left"
 animation_right = "idle_right"
 
-[node name="move" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "attack_state")]
-script = ExtResource("7_eheft")
-idle_state = NodePath("../idle")
-attack_state = NodePath("../attack")
+[node name="move" type="Node" parent="state_machine"]
+script = ExtResource("8_2518h")
 animation_up = "walk_up"
 animation_down = "walk_down"
 animation_left = "walk_left"
 animation_right = "walk_right"
 move_speed = 17000.0
 
-[node name="attack" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("8_tndut")
-idle_state = NodePath("../idle")
-move_state = NodePath("../move")
+[node name="attack" type="Node" parent="state_machine"]
+script = ExtResource("9_4biwt")
 animation_up = "shoot_up"
 animation_down = "shoot_down"
 animation_left = "shoot_left"
 animation_right = "shoot_right"
 
 [node name="death" type="Node" parent="state_machine"]
-script = ExtResource("9_swn0d")
+script = ExtResource("10_kvod2")
 animation_up = "death"
 animation_down = "death"
 animation_left = "death"
@@ -508,6 +501,7 @@ animation_right = "death"
 [node name="Reset_game" type="Timer" parent="state_machine/death"]
 
 [node name="input_interface" type="Node" parent="."]
-script = ExtResource("9_qcn3n")
+script = ExtResource("11_o3nfk")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="state_machine/death/Reset_game" to="state_machine/death" method="_on_reset_game_timeout"]

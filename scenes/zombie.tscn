@@ -1,12 +1,12 @@
 [gd_scene load_steps=14 format=3 uid="uid://c5w76qm7y53lo"]
 
-[ext_resource type="Script" path="res://scripts/zombie.gd" id="1_76oya"]
-[ext_resource type="Script" path="res://scripts/state_machine.gd" id="1_qgjqp"]
-[ext_resource type="Script" path="res://scripts/idle.gd" id="2_nvf0o"]
+[ext_resource type="Script" path="res://scripts/entities/zombie.gd" id="1_63qto"]
 [ext_resource type="Texture2D" uid="uid://u43d1eplyvun" path="res://assets/zombie/zombie_tilesheet.png" id="2_ul2q0"]
-[ext_resource type="Script" path="res://scripts/move.gd" id="3_vf7py"]
-[ext_resource type="Script" path="res://scripts/ai_interface.gd" id="4_at4f0"]
-[ext_resource type="Script" path="res://scripts/attack_basic.gd" id="6_lf74i"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="3_g8a85"]
+[ext_resource type="Script" path="res://scripts/state_machine/idle.gd" id="4_htaae"]
+[ext_resource type="Script" path="res://scripts/state_machine/move.gd" id="5_x1ktm"]
+[ext_resource type="Script" path="res://scripts/state_machine/attack_basic.gd" id="6_owbfw"]
+[ext_resource type="Script" path="res://scripts/input_interface/ai_interface.gd" id="7_ng2ol"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k88tt"]
 atlas = ExtResource("2_ul2q0")
@@ -49,11 +49,10 @@ radius = 18.3333
 radius = 25.0
 height = 90.0
 
-[node name="zombie" type="CharacterBody2D" node_paths=PackedStringArray("attack_state")]
+[node name="zombie" type="CharacterBody2D"]
 scale = Vector2(0.6, 0.6)
 collision_mask = 3
-script = ExtResource("1_76oya")
-attack_state = NodePath("state_machine/attack")
+script = ExtResource("1_63qto")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gf438")
@@ -64,37 +63,20 @@ frame_progress = 0.880428
 position = Vector2(0, 11.6667)
 shape = SubResource("CircleShape2D_4i6b3")
 
-[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("1_qgjqp")
-starting_state = NodePath("idle")
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource("3_g8a85")
 
-[node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state")]
-script = ExtResource("2_nvf0o")
-move_state = NodePath("../move")
-animation_up = "idle"
-animation_down = "idle"
-animation_left = "idle"
-animation_right = "idle"
+[node name="idle" type="Node" parent="state_machine"]
+script = ExtResource("4_htaae")
 
-[node name="move" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state")]
-script = ExtResource("3_vf7py")
-idle_state = NodePath("../idle")
-animation_up = "walk"
-animation_down = "walk"
-animation_left = "walk"
-animation_right = "walk"
-move_speed = 10000.0
+[node name="move" type="Node" parent="state_machine"]
+script = ExtResource("5_x1ktm")
 
 [node name="attack" type="Node" parent="state_machine"]
-script = ExtResource("6_lf74i")
-animation_up = null
-animation_down = null
-animation_left = null
-animation_right = null
-move_speed = null
+script = ExtResource("6_owbfw")
 
 [node name="input_interface" type="Node" parent="."]
-script = ExtResource("4_at4f0")
+script = ExtResource("7_ng2ol")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(0, 11.6667)

@@ -45,4 +45,3 @@ shape = SubResource("WorldBoundaryShape2D_pray0")
 [node name="zombie" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_pko1o")]
 position = Vector2(-590, -315)
 target = NodePath("../player")
-attack_state = NodePath("")

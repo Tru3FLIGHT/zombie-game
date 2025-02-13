@@ -21,7 +21,7 @@ func _ready() -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent() == target:
 		state_machine.change_state(attack_state)
-	if area.get_parent() == Bullet:
+	if area.get_parent() is Bullet:
 		shot()
 
 
