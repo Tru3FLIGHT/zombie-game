@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c5w76qm7y53lo"]
+[gd_scene load_steps=14 format=3 uid="uid://c5w76qm7y53lo"]
 
 [ext_resource type="Script" path="res://scripts/zombie.gd" id="1_76oya"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="1_qgjqp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://u43d1eplyvun" path="res://assets/zombie/zombie_tilesheet.png" id="2_ul2q0"]
 [ext_resource type="Script" path="res://scripts/move.gd" id="3_vf7py"]
 [ext_resource type="Script" path="res://scripts/ai_interface.gd" id="4_at4f0"]
+[ext_resource type="Script" path="res://scripts/attack_basic.gd" id="6_lf74i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k88tt"]
 atlas = ExtResource("2_ul2q0")
@@ -41,23 +42,27 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2lxx"]
-radius = 28.3333
-height = 86.6667
+[sub_resource type="CircleShape2D" id="CircleShape2D_4i6b3"]
+radius = 18.3333
 
-[node name="zombie" type="CharacterBody2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5a8bf"]
+radius = 25.0
+height = 90.0
+
+[node name="zombie" type="CharacterBody2D" node_paths=PackedStringArray("attack_state")]
 scale = Vector2(0.6, 0.6)
+collision_mask = 3
 script = ExtResource("1_76oya")
+attack_state = NodePath("state_machine/attack")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gf438")
 animation = &"idle"
-frame_progress = 0.278349
+frame_progress = 0.880428
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11.6667)
-shape = SubResource("CapsuleShape2D_h2lxx")
+shape = SubResource("CircleShape2D_4i6b3")
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("1_qgjqp")
@@ -80,5 +85,21 @@ animation_left = "walk"
 animation_right = "walk"
 move_speed = 10000.0
 
+[node name="attack" type="Node" parent="state_machine"]
+script = ExtResource("6_lf74i")
+animation_up = null
+animation_down = null
+animation_left = null
+animation_right = null
+move_speed = null
+
 [node name="input_interface" type="Node" parent="."]
 script = ExtResource("4_at4f0")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 11.6667)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_5a8bf")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

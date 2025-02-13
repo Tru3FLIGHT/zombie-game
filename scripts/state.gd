@@ -12,7 +12,7 @@ var animation_right: String
 @export
 var move_speed: float = 400
 
-#referance to the parent class to be initalized by state_machine
+#referance to the following classes to be initalized by state_machine
 var parent: CharacterBody2D
 var animations: AnimatedSprite2D
 var i_interface: input_interface

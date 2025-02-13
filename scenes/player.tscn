@@ -1,7 +1,8 @@
-[gd_scene load_steps=60 format=3 uid="uid://dcmhj1u8e1dyn"]
+[gd_scene load_steps=67 format=3 uid="uid://dcmhj1u8e1dyn"]
 
 [ext_resource type="Texture2D" uid="uid://echfc6kbatp2" path="res://assets/Character with pistol/idle/Idle_sprites.png" id="1_vrbr7"]
-[ext_resource type="Script" path="res://scripts/Moveable.gd" id="1_vt2qa"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_xwflt"]
+[ext_resource type="Texture2D" uid="uid://dw48y5vmg8pxa" path="res://assets/Character with pistol/death/death_sheet.png" id="2_81afk"]
 [ext_resource type="Texture2D" uid="uid://cefumx1gubw42" path="res://assets/Character with pistol/attack/shoot_sheet.png" id="2_v3ye7"]
 [ext_resource type="Texture2D" uid="uid://bqxllu8vpoq3t" path="res://assets/Character with pistol/walk/walking_sheet.png" id="3_fm5yi"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="5_y54j8"]
@@ -9,6 +10,23 @@
 [ext_resource type="Script" path="res://scripts/move.gd" id="7_eheft"]
 [ext_resource type="Script" path="res://scripts/shoot.gd" id="8_tndut"]
 [ext_resource type="Script" path="res://scripts/player_interface.gd" id="9_qcn3n"]
+[ext_resource type="Script" path="res://scripts/death.gd" id="9_swn0d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rxvq"]
+atlas = ExtResource("2_81afk")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dapvo"]
+atlas = ExtResource("2_81afk")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xut13"]
+atlas = ExtResource("2_81afk")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv2co"]
+atlas = ExtResource("2_81afk")
+region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e3r8q"]
 atlas = ExtResource("1_vrbr7")
@@ -204,6 +222,23 @@ region = Rect2(192, 192, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5bacq"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rxvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dapvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xut13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sv2co")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e3r8q")
@@ -409,19 +444,26 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_c8ib1"]
+radius = 4.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_n7863"]
-radius = 4.12311
+radius = 3.75
 
 [node name="player" type="CharacterBody2D"]
 scale = Vector2(4, 4)
-script = ExtResource("1_vt2qa")
+script = ExtResource("1_xwflt")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5bacq")
-animation = &"idle_down"
+animation = &"dead"
 
-[node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.25)
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="hitbox" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_c8ib1")
+
+[node name="colison_box" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n7863")
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
@@ -456,5 +498,16 @@ animation_down = "shoot_down"
 animation_left = "shoot_left"
 animation_right = "shoot_right"
 
+[node name="death" type="Node" parent="state_machine"]
+script = ExtResource("9_swn0d")
+animation_up = "death"
+animation_down = "death"
+animation_left = "death"
+animation_right = "death"
+
+[node name="Reset_game" type="Timer" parent="state_machine/death"]
+
 [node name="input_interface" type="Node" parent="."]
 script = ExtResource("9_qcn3n")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
