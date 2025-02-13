@@ -17,7 +17,6 @@ func _physics_process(delta: float) -> void:
 		1: d = Vector2.RIGHT
 		2: d = Vector2.UP
 		3: d = Vector2.DOWN
-	print(d)
 	position += d * SPEED * delta
 	move_and_slide()
 	

@@ -7,12 +7,12 @@ var attack_state: State
 
 func enter() -> void:
 	super()
-	parent.velocity.x = 0
-	parent.velocity.y = 0
+	parent.velocity = Vector2.ZERO
 
-func process_input(event: InputEvent) -> State:
-	if Input.is_action_just_pressed("shoot"):
+func process_input(_event: InputEvent) -> State:
+	#check the control engine for the relevant controls
+	if i_interface.attack_input():
 		return attack_state
-	if Input.is_action_pressed("walk_left") or Input.is_action_pressed("walk_right") or Input.is_action_pressed("walk_up") or Input.is_action_pressed("walk_down"):
+	if i_interface.get_movement_direction() != Vector2.ZERO:
 		return move_state
 	return null

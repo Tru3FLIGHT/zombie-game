@@ -12,7 +12,7 @@ var animations = $Animations
 var state_machine = $state_machine
 
 func _ready() -> void:
-	state_machine.init(self)
+	state_machine.init(self, animations)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)

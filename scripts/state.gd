@@ -13,10 +13,12 @@ var animation_right: String
 var move_speed: float = 400
 
 #referance to the parent class to be initalized by state_machine
-var parent: Player
+var parent: CharacterBody2D
+var animations: AnimatedSprite2D
+var i_interface: input_interface
 
 func enter() -> void:
-	parent.animations.play(directional_anim())
+	animations.play(directional_anim())
 	
 func exit() -> void:
 	pass

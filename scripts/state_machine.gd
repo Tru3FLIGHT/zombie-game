@@ -1,16 +1,20 @@
 extends Node
 
-@onready var move: Node = $move
+
 @export
 var starting_state: State
+@export
+var i_interface: input_interface
 
 var current_state: State
 
 #initialize, we give the children references to the parent/root node, this is normally poor
 #implomentation but the nodes act as indivisual player scripts so we allow it in this instance
-func init(parent: Player) -> void:
+func init(parent: CharacterBody2D, animations: AnimatedSprite2D) -> void:
 	for child in get_children():
 		child.parent = parent
+		child.animations = animations
+		child.i_interface = i_interface
 		
 	#init default state
 	change_state(starting_state)
@@ -36,6 +40,3 @@ func process_frame(delta: float) -> void:
 	var new_state = current_state.process_frame(delta)
 	if new_state:
 		change_state(new_state)
-		
-func get_direction() -> Vector2:
-	return move.direction
