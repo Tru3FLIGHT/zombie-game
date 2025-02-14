@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://coq7f8w40ey6g"]
+[gd_scene load_steps=4 format=3 uid="uid://coq7f8w40ey6g"]
 
 [ext_resource type="PackedScene" uid="uid://dcmhj1u8e1dyn" path="res://scenes/player.tscn" id="1_lioq3"]
-[ext_resource type="PackedScene" uid="uid://c5w76qm7y53lo" path="res://scenes/zombie.tscn" id="2_pko1o"]
-[ext_resource type="PackedScene" uid="uid://b3vjmec5h5h4e" path="res://scenes/game_ui.tscn" id="3_8t8e2"]
+[ext_resource type="Script" path="res://scripts/game logic/zombie_spawner.gd" id="2_nq5ks"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pray0"]
 distance = -360.0
@@ -11,12 +10,6 @@ distance = -360.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.9, 0.9)
-
-[node name="Game Ui" parent="." instance=ExtResource("3_8t8e2")]
-offset_left = -640.0
-offset_top = -360.0
-offset_right = -512.0
-offset_bottom = -288.0
 
 [node name="player" parent="." instance=ExtResource("1_lioq3")]
 position = Vector2(0, -3)
@@ -51,9 +44,10 @@ rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_pray0")
 
 [node name="enemies" type="Node" parent="."]
+script = ExtResource("2_nq5ks")
 
-[node name="zombie" parent="enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_pko1o")]
-position = Vector2(-584, -244)
-target = NodePath("../../player")
+[node name="zombie_timer" type="Timer" parent="enemies"]
+autostart = true
 
-[connection signal="health_changed" from="player" to="Game Ui" method="_on_player_health_changed"]
+[connection signal="player_died" from="player" to="enemies" method="_on_player_player_died"]
+[connection signal="timeout" from="enemies/zombie_timer" to="enemies" method="_on_zombie_timer_timeout"]

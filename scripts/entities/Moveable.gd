@@ -1,6 +1,8 @@
 class_name Moveable
 extends CharacterBody2D
 
+signal player_died
+
 enum facing {LEFT, RIGHT, UP, DOWN}
 
 @export
@@ -32,4 +34,5 @@ func _process(delta: float) -> void:
 	
 func death_check() -> void:
 	if Health <= 0:
+		emit_signal("player_died")
 		state_machine.change_state(death_state)
