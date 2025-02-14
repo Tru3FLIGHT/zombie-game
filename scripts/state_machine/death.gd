@@ -1,11 +1,15 @@
 extends State
 
-@onready var reset_game: Timer = $Reset_game
+@onready var despawn: Timer = $despawn
+@onready var hitbox: CollisionShape2D = $"../../hitbox"
+@onready var area_2d: Area2D = $"../../Area2D"
 
-func enter()-> void:
+func enter() -> void:
 	super()
-	reset_game.start()
+	
+	despawn.start()
+	hitbox.queue_free()
+	area_2d.queue_free()
 
-
-func _on_reset_game_timeout() -> void:
-	get_tree().reload_current_scene()
+func _on_timer_timeout() -> void:
+	parent.queue_free()
