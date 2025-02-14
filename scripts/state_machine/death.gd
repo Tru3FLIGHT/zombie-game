@@ -6,7 +6,6 @@ extends State
 
 func enter() -> void:
 	super()
-	
 	despawn.start()
 	hitbox.queue_free()
 	area_2d.queue_free()
