@@ -126,9 +126,10 @@ animation_left = "walk"
 animation_right = "walk"
 move_speed = 14000.0
 
-[node name="attack" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state")]
+[node name="attack" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "area")]
 script = ExtResource("6_owbfw")
 move_state = NodePath("../move")
+area = NodePath("../../Area2D")
 animation_up = "attack"
 animation_down = "attack"
 animation_left = "attack"

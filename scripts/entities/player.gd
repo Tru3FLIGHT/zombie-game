@@ -22,12 +22,8 @@ func _process(delta: float) -> void:
 	report_ammo_change()
 	report_health_change()
 
-func _on_area_entered(area: Area2D) -> void:
-	var attacker := area.get_parent()
-	if attacker is Zombie:
-		Health -= attacker.damage
-		death_check()
-		return
+func _on_damage_event(damage: int) -> void:
+	take_damage(damage)
 
 func report_ammo_change() -> void:
 	if prev_frame_ammo != ammo:
@@ -43,3 +39,7 @@ func death_check() -> void:
 	if Health <= 0:
 		emit_signal("player_death")
 	super()
+
+func take_damage(damage: int) -> void:
+	Health -= damage
+	death_check()

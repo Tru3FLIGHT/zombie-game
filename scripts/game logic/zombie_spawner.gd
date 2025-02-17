@@ -27,7 +27,6 @@ func _ready() -> void:
 	timer.start()
 	get_parent().connect("game_over", Callable(self, "_on_game_over"))
 
-
 func _on_zombie_timer_timeout() -> void:
 	timer.wait_time = randf_range(1,3)
 	var instance = ZOMBIE.instantiate()
