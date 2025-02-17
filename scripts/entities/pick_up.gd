@@ -11,8 +11,8 @@ func _on_area_entered(area: Area2D) -> void:
 	non_player_interaction(area)
 
 
-func player_interaction(area: Area2D) -> void:
+func player_interaction(_area: Area2D) -> void:
 	pass
 
-func non_player_interaction(area: Area2D) -> void:
+func non_player_interaction(_area: Area2D) -> void:
 	pass

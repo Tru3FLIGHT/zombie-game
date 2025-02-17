@@ -4,9 +4,11 @@ extends Moveable
 var ammo: int = 25
 var prev_frame_ammo: int = ammo
 var prev_frame_health: int = Health
-
+@warning_ignore("unused_signal")
 signal ammo_changed
+@warning_ignore("unused_signal")
 signal health_changed
+@warning_ignore("unused_signal")
 signal player_death
 
 @onready var health_bar: ProgressBar = $HealthBar

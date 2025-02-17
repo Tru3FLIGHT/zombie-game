@@ -3,6 +3,7 @@ extends Node
 @onready var player: PlayerCharacter = $player
 @onready var pickups: Node = $pickups
 
+@warning_ignore("unused_signal")
 signal game_over
 
 #this script will mainly be used to connect scripts lower in the tree

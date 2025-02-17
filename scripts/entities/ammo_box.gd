@@ -1,6 +1,7 @@
 class_name AmmoBox
 extends PickUp
 
+@warning_ignore("unused_signal")
 signal ammo_box(amount: int)
 
 func _ready() -> void:

@@ -12,6 +12,7 @@ const X_OFFSET := X_RANGE / 2.0
 
 var ammo_box = preload("res://scenes/ammo_box.tscn")
 
+@warning_ignore("unused_signal")
 signal ammo_pickup(amount: int)
 
 @onready var ammo_timer: Timer = $ammo_timer
