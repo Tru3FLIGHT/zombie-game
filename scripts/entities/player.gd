@@ -11,6 +11,10 @@ signal player_death
 
 @onready var health_bar: ProgressBar = $HealthBar
 
+func _ready() -> void:
+	super()
+	connect("player_death", Callable(get_parent(), "_on_player_death"))
+
 func _process(delta: float) -> void:
 	super(delta)
 	report_ammo_change()

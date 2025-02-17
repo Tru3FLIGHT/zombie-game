@@ -3,6 +3,8 @@ extends Node
 @onready var player: PlayerCharacter = $player
 @onready var pickups: Node = $pickups
 
+signal game_over
+
 #this script will mainly be used to connect scripts lower in the tree
 
 func _ready() -> void:
@@ -10,3 +12,6 @@ func _ready() -> void:
 
 func _on_ammo_pickup(amount:int) -> void:
 	player.ammo += amount
+
+func _on_player_death() -> void:
+	emit_signal("game_over")

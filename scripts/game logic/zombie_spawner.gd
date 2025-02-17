@@ -26,6 +26,8 @@ var spawn: Vector2
 func _ready() -> void:
 	timer.wait_time = randi_range(1,3)
 	timer.start()
+	get_parent().connect("game_over", Callable(self, "_on_game_over"))
+
 
 func _on_zombie_timer_timeout() -> void:
 	var spawn_side := randi_range(0,1) #0 is x, 1 is y
