@@ -53,8 +53,7 @@ func _on_zombie_timer_timeout() -> void:
 	instance.global_position = spawn
 	add_child(instance)
 
-
-func _on_player_player_died() -> void:
+func _on_game_over() -> void:
 	for child in get_children():
 		if child is Zombie:
 			child.queue_free()

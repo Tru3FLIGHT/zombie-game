@@ -15,7 +15,6 @@ func enter() -> void:
 	if parent.ammo > 0:
 		has_ammo = true
 		parent.ammo -= 1
-		parent.emit_signal("ammo_changed")
 	else:
 		has_ammo = false
 

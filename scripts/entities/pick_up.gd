@@ -1,10 +1,9 @@
 class_name PickUp
 extends Area2D
 
-@export
-var amount: int
+var amount: int = 10
 
-
+#freeing must be handled by inheriting classes
 func _on_area_entered(area: Area2D) -> void:
 	if area.get_parent() is PlayerCharacter:
 		player_interaction(area)

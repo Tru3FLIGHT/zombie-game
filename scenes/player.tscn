@@ -535,5 +535,5 @@ animation_right = "dead"
 [node name="input_interface" type="Node" parent="."]
 script = ExtResource("11_o3nfk")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
 [connection signal="timeout" from="state_machine/death/Reset_game" to="state_machine/death" method="_on_reset_game_timeout"]
