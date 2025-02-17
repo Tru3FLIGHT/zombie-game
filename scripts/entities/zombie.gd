@@ -10,11 +10,13 @@ var attack_state: State
 @export
 var shots_to_kill: int = 1
 
-@warning_ignore("integer_division")
-var bullet_dmg: int = Health / shots_to_kill
+var bullet_dmg: int
+
 
 func _ready() -> void:
 	super()
+	@warning_ignore("integer_division")
+	bullet_dmg = Health / shots_to_kill
 	i_interface.parent = self
 	i_interface.follow = target
 

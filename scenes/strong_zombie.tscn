@@ -1,0 +1,166 @@
+[gd_scene load_steps=19 format=3 uid="uid://gtbuxvnqs2uq"]
+
+[ext_resource type="Script" path="res://scripts/entities/zombie.gd" id="1_n33i4"]
+[ext_resource type="Texture2D" uid="uid://u43d1eplyvun" path="res://assets/zombie/zombie_tilesheet.png" id="2_p24em"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="3_lyxtb"]
+[ext_resource type="Script" path="res://scripts/state_machine/idle.gd" id="4_o1syo"]
+[ext_resource type="Script" path="res://scripts/state_machine/move.gd" id="5_u60yl"]
+[ext_resource type="Script" path="res://scripts/state_machine/attack_basic.gd" id="6_gdh2g"]
+[ext_resource type="Script" path="res://scripts/state_machine/death.gd" id="7_cbc4i"]
+[ext_resource type="Script" path="res://scripts/input_interface/ai_interface.gd" id="8_i4pmn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfiqr"]
+atlas = ExtResource("2_p24em")
+region = Rect2(240, 110, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s04yo"]
+atlas = ExtResource("2_p24em")
+region = Rect2(320, 110, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ad0i"]
+atlas = ExtResource("2_p24em")
+region = Rect2(400, 110, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kx0u5"]
+atlas = ExtResource("2_p24em")
+region = Rect2(80, 220, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k88tt"]
+atlas = ExtResource("2_p24em")
+region = Rect2(0, 0, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blx43"]
+atlas = ExtResource("2_p24em")
+region = Rect2(0, 110, 80, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvn8t"]
+atlas = ExtResource("2_p24em")
+region = Rect2(80, 110, 80, 110)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gf438"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfiqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s04yo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ad0i")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kx0u5")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k88tt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blx43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvn8t")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4i6b3"]
+radius = 18.3333
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5a8bf"]
+radius = 25.0
+height = 90.0
+
+[node name="zombie" type="CharacterBody2D" node_paths=PackedStringArray("attack_state", "death_state")]
+scale = Vector2(0.6, 0.6)
+collision_mask = 3
+script = ExtResource("1_n33i4")
+attack_state = NodePath("state_machine/attack")
+shots_to_kill = 2
+death_state = NodePath("state_machine/death")
+
+[node name="Animations" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gf438")
+animation = &"attack"
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.6667)
+shape = SubResource("CircleShape2D_4i6b3")
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_lyxtb")
+starting_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state")]
+script = ExtResource("4_o1syo")
+move_state = NodePath("../move")
+attack_state = NodePath("../attack")
+animation_up = "idle"
+animation_down = "idle"
+animation_left = "idle"
+animation_right = "idle"
+
+[node name="move" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "attack_state")]
+script = ExtResource("5_u60yl")
+idle_state = NodePath("../idle")
+attack_state = NodePath("../attack")
+animation_up = "walk"
+animation_down = "walk"
+animation_left = "walk"
+animation_right = "walk"
+move_speed = 8.0
+
+[node name="attack" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "area")]
+script = ExtResource("6_gdh2g")
+move_state = NodePath("../move")
+area = NodePath("../../Area2D")
+animation_up = "attack"
+animation_down = "attack"
+animation_left = "attack"
+animation_right = "attack"
+
+[node name="death" type="Node" parent="state_machine"]
+script = ExtResource("7_cbc4i")
+animation_up = "death"
+animation_down = "death"
+animation_left = "death"
+animation_right = "death"
+
+[node name="despawn" type="Timer" parent="state_machine/death"]
+
+[node name="input_interface" type="Node" parent="."]
+script = ExtResource("8_i4pmn")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 11.6667)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_5a8bf")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = -25.0
+offset_top = -58.3333
+offset_right = 22.0
+offset_bottom = -35.3333
+text = "strong"
+
+[connection signal="timeout" from="state_machine/death/despawn" to="state_machine/death" method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

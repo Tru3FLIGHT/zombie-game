@@ -1,6 +1,5 @@
 extends Node
 
-
 @export
 var base_spawn_chance: float = 0.8:
 	set(val):
@@ -8,8 +7,17 @@ var base_spawn_chance: float = 0.8:
 @export
 var zombie_rarity_distrobution = {
 	"Zombie": 0.80,
-	"Fast Zombie": 0.20}
+	"Fast Zombie": 0.10,
+	"Strong Zombie": 0.10}
 
+@onready
+var parent = get_parent()
+@onready
+var difficulty = parent.difficulty
+@onready
+var old_difficulty = difficulty
+@onready
+var difficulty_scale: float
 
 #represents the outer bounds of the game, used to spawn zombies
 const Y_RANGE := 700 #represents the height of the screen, actual coordinates are from -350 to 350
@@ -25,17 +33,19 @@ var timer: Timer = $zombie_timer
 
 const ZOMBIE = preload("res://scenes/zombie.tscn")
 const fast_zombie = preload("res://scenes/fast_zombie.tscn")
+const strong_zombie = preload("res://scenes/strong_zombie.tscn")
 
 #every time the timer times out a new zombie has a chance to spawn
-#the timer is reset to 1
+#the chance of spawning goes up as the difficulty goes up
+#specially zombies have a lower chance of spawning, the spawn chance is determined by zombie_rarity_distrobution
 #the zombies will spawn at a random location on the edge of the screen
 #first we will choose whether to spawn on the x or y axis
 #then we will choose a random location on the chosen axis and pick a random side
 
-#the chance of spawning goes up as the difficulty goes up
-#the chance of special zombies spawning goes up as the difficulty goes up
+
 
 func _ready() -> void:
+	scale_difficulty()
 	timer.wait_time = 1
 	timer.start()
 	get_parent().connect("game_over", Callable(self, "_on_game_over"))
@@ -46,6 +56,8 @@ func _on_zombie_timer_timeout() -> void:
 		var instance = chosen.instantiate()
 		spawn_zombie(instance)
 		add_child(instance)
+	if difficulty_changed():
+		scale_difficulty()
 
 func spawn_zombie(instance: Zombie) -> void:
 	var spawn = gen_spawn()
@@ -79,13 +91,18 @@ func _on_game_over() -> void:
 
 #returns true if allowed to spawn a zombie
 func try_spawn() -> bool:
-	var spawn_chance = base_spawn_chance
-	if randf() < spawn_chance:
+	var spawn_chance = base_spawn_chance + difficulty_scale
+	print("spawn chance: ", spawn_chance)
+	var roll = randf()
+	#print("spawn Chance: ", roll)
+	if roll < spawn_chance:
 		return true
 	return false
 
+
 func pick_zombie() -> PackedScene:
 	var roll = randf()
+	#print("Zombie type: ", roll)
 	var cumulative_chance = 0.0
 	for zombie_type in zombie_rarity_distrobution.keys():
 		cumulative_chance += zombie_rarity_distrobution[zombie_type]
@@ -94,5 +111,17 @@ func pick_zombie() -> PackedScene:
 				return ZOMBIE
 			elif zombie_type == "Fast Zombie":
 				return fast_zombie
+			elif zombie_type == "Strong Zombie":
+				return strong_zombie
 	# Fallback in case something goes wrong
 	return ZOMBIE
+
+func difficulty_changed() -> bool:
+	old_difficulty = difficulty
+	difficulty = parent.difficulty
+	if old_difficulty != difficulty:
+		return true
+	return false
+
+func scale_difficulty() -> void:
+	difficulty_scale = (difficulty / 100.0)*4.0
