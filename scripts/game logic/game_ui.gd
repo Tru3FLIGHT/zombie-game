@@ -1,7 +1,7 @@
 extends Control
 
 @onready var ammo_count: Label = $"ammo count"
-@onready var player: PlayerCharacter = $"../player"
+@onready var player: PlayerCharacter = $".."
 
 func _ready() -> void:
 	player.connect("ammo_changed", Callable(self, "_on_ammo_changed"))
@@ -9,5 +9,5 @@ func _ready() -> void:
 
 
 func _on_ammo_changed() -> void:
-	print("ammo_change_event")
-	ammo_count.text = str(player.ammo)
+
+	ammo_count.text = "Ammo: %s" % str(player.ammo)

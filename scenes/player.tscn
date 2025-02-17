@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://dcmhj1u8e1dyn"]
+[gd_scene load_steps=71 format=3 uid="uid://dcmhj1u8e1dyn"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_kf212"]
 [ext_resource type="Texture2D" uid="uid://echfc6kbatp2" path="res://assets/Character with pistol/idle/Idle_sprites.png" id="1_vrbr7"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/game logic/health_ui.gd" id="6_fwlgp"]
 [ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="6_j7nmv"]
 [ext_resource type="Script" path="res://scripts/state_machine/idle.gd" id="7_5kkoe"]
+[ext_resource type="PackedScene" uid="uid://b3vjmec5h5h4e" path="res://scenes/game_ui.tscn" id="7_row6h"]
 [ext_resource type="Script" path="res://scripts/state_machine/move.gd" id="8_2518h"]
 [ext_resource type="Script" path="res://scripts/state_machine/shoot.gd" id="9_4biwt"]
 [ext_resource type="Script" path="res://scripts/state_machine/player_death.gd" id="10_mcwln"]
@@ -476,6 +477,7 @@ shape = SubResource("CircleShape2D_c8ib1")
 shape = SubResource("CircleShape2D_n7863")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -490,6 +492,22 @@ theme_override_colors/font_outline_color = Color(0.988235, 0, 0, 1)
 value = 10.0
 show_percentage = false
 script = ExtResource("6_fwlgp")
+
+[node name="Game Ui" parent="." instance=ExtResource("7_row6h")]
+z_index = 2
+offset_left = 51.75
+offset_top = -42.25
+offset_right = 51.75
+offset_bottom = -42.25
+scale = Vector2(0.5, 0.5)
+
+[node name="ammo count" parent="Game Ui" index="0"]
+offset_left = -123.5
+offset_top = 42.0
+offset_right = -45.5
+offset_bottom = 65.0
+scale = Vector2(0.5, 0.5)
+text = "Ammo: 25"
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("6_j7nmv")
@@ -512,7 +530,7 @@ animation_up = "walk_up"
 animation_down = "walk_down"
 animation_left = "walk_left"
 animation_right = "walk_right"
-move_speed = 17000.0
+move_speed = 16.0
 
 [node name="attack" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
 script = ExtResource("9_4biwt")
@@ -537,3 +555,5 @@ script = ExtResource("11_o3nfk")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
 [connection signal="timeout" from="state_machine/death/Reset_game" to="state_machine/death" method="_on_reset_game_timeout"]
+
+[editable path="Game Ui"]

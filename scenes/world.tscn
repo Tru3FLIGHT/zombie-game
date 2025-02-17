@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://coq7f8w40ey6g"]
+[gd_scene load_steps=6 format=3 uid="uid://coq7f8w40ey6g"]
 
-[ext_resource type="PackedScene" uid="uid://b3vjmec5h5h4e" path="res://scenes/game_ui.tscn" id="1_acm0d"]
 [ext_resource type="PackedScene" uid="uid://dcmhj1u8e1dyn" path="res://scenes/player.tscn" id="1_lioq3"]
 [ext_resource type="Script" path="res://scripts/game logic/world.gd" id="1_mwi0b"]
 [ext_resource type="Script" path="res://scripts/game logic/zombie_spawner.gd" id="2_nq5ks"]
@@ -14,13 +13,6 @@ script = ExtResource("1_mwi0b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.9, 0.9)
-
-[node name="Game Ui" parent="." instance=ExtResource("1_acm0d")]
-offset_left = -639.0
-offset_top = -359.0
-offset_right = -511.0
-offset_bottom = -289.0
-metadata/_edit_use_anchors_ = true
 
 [node name="player" parent="." instance=ExtResource("1_lioq3")]
 position = Vector2(0, -3)
@@ -56,6 +48,7 @@ shape = SubResource("WorldBoundaryShape2D_pray0")
 
 [node name="enemies" type="Node" parent="."]
 script = ExtResource("2_nq5ks")
+base_spawn_chance = 15.07
 
 [node name="zombie_timer" type="Timer" parent="enemies"]
 autostart = true

@@ -1,5 +1,16 @@
 extends Node
 
+
+@export
+var base_spawn_chance: float = 0.8:
+	set(val):
+		base_spawn_chance = clamp(val, 0.01, 1.0)
+@export
+var zombie_rarity_distrobution = {
+	"Zombie": 0.80,
+	"Fast Zombie": 0.20}
+
+
 #represents the outer bounds of the game, used to spawn zombies
 const Y_RANGE := 700 #represents the height of the screen, actual coordinates are from -350 to 350
 const X_RANGE := 1260 #represents the width of the screen, actual coordinates are from -630 to 630
@@ -13,25 +24,28 @@ var timer: Timer = $zombie_timer
 @onready var target: PlayerCharacter = $"../player"
 
 const ZOMBIE = preload("res://scenes/zombie.tscn")
+const fast_zombie = preload("res://scenes/fast_zombie.tscn")
 
-#every time the timer times out a new zombie is spawned
-#the timer is reset to a random value based on the difficulty,
+#every time the timer times out a new zombie has a chance to spawn
+#the timer is reset to 1
 #the zombies will spawn at a random location on the edge of the screen
 #first we will choose whether to spawn on the x or y axis
 #then we will choose a random location on the chosen axis and pick a random side
 
-#the spawn times will be based on a base value, that value will be devide by the difficulty level
+#the chance of spawning goes up as the difficulty goes up
+#the chance of special zombies spawning goes up as the difficulty goes up
 
 func _ready() -> void:
-	timer.wait_time = randf_range(1,3)
+	timer.wait_time = 1
 	timer.start()
 	get_parent().connect("game_over", Callable(self, "_on_game_over"))
 
 func _on_zombie_timer_timeout() -> void:
-	timer.wait_time = randf_range(1,3)
-	var instance = ZOMBIE.instantiate()
-	spawn_zombie(instance)
-	add_child(instance)
+	if try_spawn():
+		var chosen = pick_zombie()
+		var instance = chosen.instantiate()
+		spawn_zombie(instance)
+		add_child(instance)
 
 func spawn_zombie(instance: Zombie) -> void:
 	var spawn = gen_spawn()
@@ -62,4 +76,23 @@ func _on_game_over() -> void:
 	for child in get_children():
 		if child is Zombie:
 			child.queue_free()
-	
+
+#returns true if allowed to spawn a zombie
+func try_spawn() -> bool:
+	var spawn_chance = base_spawn_chance
+	if randf() < spawn_chance:
+		return true
+	return false
+
+func pick_zombie() -> PackedScene:
+	var roll = randf()
+	var cumulative_chance = 0.0
+	for zombie_type in zombie_rarity_distrobution.keys():
+		cumulative_chance += zombie_rarity_distrobution[zombie_type]
+		if roll < cumulative_chance:
+			if zombie_type == "Zombie":
+				return ZOMBIE
+			elif zombie_type == "Fast Zombie":
+				return fast_zombie
+	# Fallback in case something goes wrong
+	return ZOMBIE

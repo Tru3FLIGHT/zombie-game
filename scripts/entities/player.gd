@@ -12,6 +12,7 @@ signal health_changed
 signal player_death
 
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var game_ui: Control = $"Game Ui"
 
 func _ready() -> void:
 	super()
@@ -38,6 +39,8 @@ func report_health_change() -> void:
 func death_check() -> void:
 	if Health <= 0:
 		emit_signal("player_death")
+		health_bar.queue_free()
+		game_ui.queue_free()
 	super()
 
 func take_damage(damage: int) -> void:

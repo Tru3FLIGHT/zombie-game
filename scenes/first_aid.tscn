@@ -7,6 +7,7 @@
 
 [node name="FirstAid" type="Area2D"]
 script = ExtResource("1_4jemd")
+amount = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_pceth")

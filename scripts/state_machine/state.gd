@@ -10,7 +10,7 @@ var animation_left: String
 @export
 var animation_right: String
 @export
-var move_speed: float = 400
+var move_speed: float = 1
 
 #referance to the following classes to be initalized by state_machine
 var parent: CharacterBody2D
