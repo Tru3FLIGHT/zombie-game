@@ -6,6 +6,8 @@ var target: Node2D
 @export
 var damage: int = 10
 @export
+var worth: int = 10
+@export
 var attack_state: State
 @export
 var shots_to_kill: int = 1

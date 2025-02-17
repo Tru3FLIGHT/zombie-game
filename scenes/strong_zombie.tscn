@@ -92,6 +92,7 @@ height = 90.0
 scale = Vector2(0.6, 0.6)
 collision_mask = 3
 script = ExtResource("1_n33i4")
+damage = 20
 attack_state = NodePath("state_machine/attack")
 shots_to_kill = 2
 death_state = NodePath("state_machine/death")

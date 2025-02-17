@@ -1,14 +1,14 @@
 extends Node
 
 @export
-var base_spawn_chance: float = 0.8:
+var base_spawn_chance: float:
 	set(val):
 		base_spawn_chance = clamp(val, 0.01, 1.0)
-@export
+
 var zombie_rarity_distrobution = {
-	"Zombie": 0.80,
-	"Fast Zombie": 0.10,
-	"Strong Zombie": 0.10}
+	ZOMBIE: 0.70,
+	fast_zombie: 0.20,
+	strong_zombie: 0.10}
 
 @onready
 var parent = get_parent()
@@ -42,8 +42,6 @@ const strong_zombie = preload("res://scenes/strong_zombie.tscn")
 #first we will choose whether to spawn on the x or y axis
 #then we will choose a random location on the chosen axis and pick a random side
 
-
-
 func _ready() -> void:
 	scale_difficulty()
 	timer.wait_time = 1
@@ -51,6 +49,7 @@ func _ready() -> void:
 	get_parent().connect("game_over", Callable(self, "_on_game_over"))
 
 func _on_zombie_timer_timeout() -> void:
+	randomize()
 	if try_spawn():
 		var chosen = pick_zombie()
 		var instance = chosen.instantiate()
@@ -94,11 +93,10 @@ func try_spawn() -> bool:
 	var spawn_chance = base_spawn_chance + difficulty_scale
 	print("spawn chance: ", spawn_chance)
 	var roll = randf()
-	#print("spawn Chance: ", roll)
+	#print("spawn Roll: ", roll)
 	if roll < spawn_chance:
 		return true
 	return false
-
 
 func pick_zombie() -> PackedScene:
 	var roll = randf()
@@ -107,12 +105,7 @@ func pick_zombie() -> PackedScene:
 	for zombie_type in zombie_rarity_distrobution.keys():
 		cumulative_chance += zombie_rarity_distrobution[zombie_type]
 		if roll < cumulative_chance:
-			if zombie_type == "Zombie":
-				return ZOMBIE
-			elif zombie_type == "Fast Zombie":
-				return fast_zombie
-			elif zombie_type == "Strong Zombie":
-				return strong_zombie
+			return zombie_type
 	# Fallback in case something goes wrong
 	return ZOMBIE
 
@@ -124,4 +117,4 @@ func difficulty_changed() -> bool:
 	return false
 
 func scale_difficulty() -> void:
-	difficulty_scale = (difficulty / 100.0)*4.0
+	difficulty_scale = (difficulty / 100.0)*5.0
