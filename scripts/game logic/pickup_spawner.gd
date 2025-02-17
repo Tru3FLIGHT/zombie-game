@@ -23,18 +23,20 @@ func _ready() -> void:
 	ammo_timer.connect("timeout", Callable(self, "_on_ammo_timeout"))
 	connect("ammo_pickup", Callable(get_parent(), "_on_ammo_pickup"))
 	get_parent().connect("game_over", Callable(self, "_on_game_over"))
-	
 
 func _on_ammo_timeout() -> void:
-	var spawnpoint: Vector2 = gen_spawnpoint()
 	var instance = ammo_box.instantiate()
-	instance.global_position = spawnpoint
+	spawn(instance, ammo_timer, ammo_lower_bound, ammo_upper_bound)
 	instance.connect("ammo_box", Callable(self, "_on_ammo_pickup"))
-	add_child(instance)
-	ammo_timer.wait_time = randi_range(ammo_lower_bound, ammo_upper_bound)
 
 func _on_ammo_pickup(amount: int) -> void:
 	emit_signal("ammo_pickup", amount)
+
+func spawn(instance: PickUp, timer: Timer, lower: int, upper: int) -> void:
+	var spawnpoint: Vector2 = gen_spawnpoint()
+	instance.global_position = spawnpoint
+	add_child(instance)
+	timer.wait_time = randi_range(lower, upper)
 
 func gen_spawnpoint() -> Vector2:
 	@warning_ignore("narrowing_conversion")

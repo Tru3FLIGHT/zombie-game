@@ -13,25 +13,35 @@ var timer: Timer = $zombie_timer
 @onready var target: PlayerCharacter = $"../player"
 
 const ZOMBIE = preload("res://scenes/zombie.tscn")
-var spawn: Vector2
+
 #every time the timer times out a new zombie is spawned
 #the timer is reset to a random value based on the difficulty,
 #the zombies will spawn at a random location on the edge of the screen
 #first we will choose whether to spawn on the x or y axis
 #then we will choose a random location on the chosen axis and pick a random side
 
-#for the time being, the difficulty will not be implemented,
-#for now it will pick a random value between 1 and 3
+#the spawn times will be based on a base value, that value will be devide by the difficulty level
 
 func _ready() -> void:
-	timer.wait_time = randi_range(1,3)
+	timer.wait_time = randf_range(1,3)
 	timer.start()
 	get_parent().connect("game_over", Callable(self, "_on_game_over"))
 
 
 func _on_zombie_timer_timeout() -> void:
-	var spawn_side := randi_range(0,1) #0 is x, 1 is y
+	timer.wait_time = randf_range(1,3)
+	var instance = ZOMBIE.instantiate()
+	spawn_zombie(instance)
+	add_child(instance)
 
+func spawn_zombie(instance: Zombie) -> void:
+	var spawn = gen_spawn()
+	instance.target = target
+	instance.global_position = spawn
+
+func gen_spawn() -> Vector2:
+	var spawn: Vector2
+	var spawn_side := randi_range(0,1) #0 is x, 1 is y
 	if spawn_side == 0: #x
 		var y := randi_range(0,1) #0: y = 350 (bottom), 1: y = -350 (top)
 		var x := randi_range(-X_OFFSET, X_OFFSET)
@@ -46,18 +56,11 @@ func _on_zombie_timer_timeout() -> void:
 			spawn = Vector2(X_OFFSET, y)
 		else:
 			spawn = Vector2(-X_OFFSET, y)
-	#set timer
-	timer.wait_time = randi_range(1,3)
-	#spawn zombie at spawn location
-	#zombie needs to be passed a target
-	var instance = ZOMBIE.instantiate()
-	instance.target = target
-	instance.global_position = spawn
-	add_child(instance)
+	return spawn
 
 func _on_game_over() -> void:
+	timer.stop()
 	for child in get_children():
 		if child is Zombie:
 			child.queue_free()
-		else:
-			timer.stop()
+	
