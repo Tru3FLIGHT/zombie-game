@@ -11,6 +11,6 @@ func _ready() -> void:
 	max_value = Health_max
 	value = Health
 
-func _on_player_health_changed() -> void:
+func health_changed() -> void:
 	Health = player.Health
 	value = Health

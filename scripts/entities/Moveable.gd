@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 
-	
+
 func death_check() -> void:
 	if Health <= 0:
 		emit_signal("player_died")

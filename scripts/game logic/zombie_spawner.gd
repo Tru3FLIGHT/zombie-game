@@ -43,7 +43,7 @@ func _on_zombie_timer_timeout() -> void:
 		if x == 0:
 			spawn = Vector2(X_OFFSET, y)
 		else:
-				spawn = Vector2(-X_OFFSET, y)
+			spawn = Vector2(-X_OFFSET, y)
 	#set timer
 	timer.wait_time = randi_range(1,3)
 	#spawn zombie at spawn location

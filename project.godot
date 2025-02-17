@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="zombie game"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://scenes/menu_ui.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,9 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
+"res://assets/Character with pistol/": "purple",
+"res://assets/pickups/": "green",
+"res://assets/zombie/": "orange",
 "res://scripts/entities/": "red",
 "res://scripts/game logic/": "orange",
 "res://scripts/input_interface/": "yellow",
