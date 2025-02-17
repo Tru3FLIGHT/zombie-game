@@ -65,4 +65,6 @@ script = ExtResource("4_i3ay4")
 
 [node name="ammo_timer" type="Timer" parent="pickups"]
 
+[node name="first_aid_timer" type="Timer" parent="pickups"]
+
 [connection signal="timeout" from="enemies/zombie_timer" to="enemies" method="_on_zombie_timer_timeout"]

@@ -14,5 +14,8 @@ func _ready() -> void:
 func _on_ammo_pickup(amount:int) -> void:
 	player.ammo += amount
 
+func _on_first_aid_pickup(amount:int) -> void:
+	player.Health += amount
+
 func _on_player_death() -> void:
 	emit_signal("game_over")

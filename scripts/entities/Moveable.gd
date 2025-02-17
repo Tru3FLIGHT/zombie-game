@@ -9,7 +9,14 @@ var death_state: State
 @export
 var facing_direction := facing.DOWN
 @export
-var Health: int = 100
+var max_health = 100
+
+var Health: int = max_health:
+	set(value):
+		Health = clamp(value, 0, max_health)
+		print("Health: ", Health)
+	get:
+		return Health
 
 @onready
 var animations = $Animations

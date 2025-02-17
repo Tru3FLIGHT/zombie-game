@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwdb17famxgf"]
+
+[ext_resource type="Script" path="res://scripts/entities/first_aid.gd" id="1_4jemd"]
+[ext_resource type="Texture2D" uid="uid://b2iyxxe1g6hlc" path="res://assets/pickups/health-green 32px.png" id="2_pceth"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkert"]
+
+[node name="FirstAid" type="Area2D"]
+script = ExtResource("1_4jemd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pceth")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wkert")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
