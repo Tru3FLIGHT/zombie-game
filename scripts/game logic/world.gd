@@ -12,6 +12,7 @@ const GAME_OVER = preload("res://scenes/game_over.tscn")
 @onready var game_timer: Timer = $game_timer
 @onready var game_over_screen: Timer = $game_over
 @onready var game_over_container: Control = $Camera2D/game_over_container
+@onready var fps_count: Label = $Camera2D/game_over_container/fps_count
 
 @export
 var difficulty: float = 1.0
@@ -28,6 +29,9 @@ func _on_ammo_pickup(amount:int) -> void:
 
 func _on_first_aid_pickup(amount:int) -> void:
 	player.Health += amount
+
+func _process(delta: float) -> void:
+	fps_count.text = str(1/delta)
 
 func _on_med_kit_pickup(amount:int) -> void:
 	player.Health += amount
