@@ -25,6 +25,9 @@ func _on_ammo_pickup(amount:int) -> void:
 func _on_first_aid_pickup(amount:int) -> void:
 	player.Health += amount
 
+func _on_med_kit_pickup(amount:int) -> void:
+	player.Health += amount
+
 func _on_player_death() -> void:
 	print(score)
 	emit_signal("game_over")

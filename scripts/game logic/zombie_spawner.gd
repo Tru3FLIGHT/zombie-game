@@ -35,6 +35,8 @@ const ZOMBIE = preload("res://scenes/zombie.tscn")
 const fast_zombie = preload("res://scenes/fast_zombie.tscn")
 const strong_zombie = preload("res://scenes/strong_zombie.tscn")
 
+signal scored(added:int)
+
 #every time the timer times out a new zombie has a chance to spawn
 #the chance of spawning goes up as the difficulty goes up
 #specially zombies have a lower chance of spawning, the spawn chance is determined by zombie_rarity_distrobution
@@ -91,7 +93,7 @@ func _on_game_over() -> void:
 #returns true if allowed to spawn a zombie
 func try_spawn() -> bool:
 	var spawn_chance = base_spawn_chance + difficulty_scale
-	print("spawn chance: ", spawn_chance)
+	#print("spawn chance: ", spawn_chance)
 	var roll = randf()
 	#print("spawn Roll: ", roll)
 	if roll < spawn_chance:
@@ -118,3 +120,8 @@ func difficulty_changed() -> bool:
 
 func scale_difficulty() -> void:
 	difficulty_scale = (difficulty / 100.0)*5.0
+	
+func _on_score(add: int) -> void:
+	connect("scored", Callable(get_parent(), "_on_score"))
+	emit_signal("scored", add)
+	disconnect("scored", Callable(get_parent(), "_on_score"))

@@ -14,6 +14,7 @@ signal player_death
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var game_ui: Control = $"Game Ui"
 
+
 func _ready() -> void:
 	super()
 	connect("player_death", Callable(get_parent(), "_on_player_death"))
@@ -42,6 +43,8 @@ func death_check() -> void:
 		health_bar.queue_free()
 		game_ui.queue_free()
 	super()
+
+func 
 
 func take_damage(damage: int) -> void:
 	Health -= damage

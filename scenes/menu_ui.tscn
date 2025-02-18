@@ -1,32 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://crbnugbqmmbui"]
 
 [ext_resource type="Script" path="res://scripts/game logic/menu_ui.gd" id="1_vvhwc"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_glr2k"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yc4bs"]
-bg_color = Color(0.762404, 0.762404, 0.762404, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_size = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgx65"]
-bg_color = Color(0.41598, 0.41598, 0.41598, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_size = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58ogm"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_size = 5
+[ext_resource type="StyleBox" uid="uid://csm6y5uke7453" path="res://assets/button_assets/focus.tres" id="2_nc5tm"]
+[ext_resource type="StyleBox" uid="uid://pg5wg2qh71tr" path="res://assets/button_assets/hover.tres" id="3_em0w6"]
+[ext_resource type="StyleBox" uid="uid://xbxb2y5tsm0n" path="res://assets/button_assets/pressed.tres" id="4_aaw75"]
+[ext_resource type="StyleBox" uid="uid://cysxdnhqb61sy" path="res://assets/button_assets/normal.tres" id="5_fykig"]
 
 [node name="menu_ui" type="Control"]
 layout_mode = 3
@@ -61,10 +39,10 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_glr2k")
-theme_override_styles/hover = SubResource("StyleBoxFlat_yc4bs")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_rgx65")
-theme_override_styles/normal = SubResource("StyleBoxFlat_58ogm")
+theme_override_styles/focus = ExtResource("2_nc5tm")
+theme_override_styles/hover = ExtResource("3_em0w6")
+theme_override_styles/pressed = ExtResource("4_aaw75")
+theme_override_styles/normal = ExtResource("5_fykig")
 text = "Start Game"
 
 [node name="options" type="Button" parent="VBoxContainer"]
@@ -76,10 +54,10 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_glr2k")
-theme_override_styles/hover = SubResource("StyleBoxFlat_yc4bs")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_rgx65")
-theme_override_styles/normal = SubResource("StyleBoxFlat_58ogm")
+theme_override_styles/focus = ExtResource("2_nc5tm")
+theme_override_styles/hover = ExtResource("3_em0w6")
+theme_override_styles/pressed = ExtResource("4_aaw75")
+theme_override_styles/normal = ExtResource("5_fykig")
 text = "options
 "
 
@@ -92,10 +70,10 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
-theme_override_styles/focus = SubResource("StyleBoxEmpty_glr2k")
-theme_override_styles/hover = SubResource("StyleBoxFlat_yc4bs")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_rgx65")
-theme_override_styles/normal = SubResource("StyleBoxFlat_58ogm")
+theme_override_styles/focus = ExtResource("2_nc5tm")
+theme_override_styles/hover = ExtResource("3_em0w6")
+theme_override_styles/pressed = ExtResource("4_aaw75")
+theme_override_styles/normal = ExtResource("5_fykig")
 text = "Exit Game
 "
 

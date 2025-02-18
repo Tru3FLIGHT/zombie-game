@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbxoh8bg8fc4d"]
+
+[ext_resource type="Script" path="res://scripts/game logic/game_over.gd" id="1_1p8md"]
+[ext_resource type="StyleBox" uid="uid://csm6y5uke7453" path="res://assets/button_assets/focus.tres" id="1_4puw3"]
+[ext_resource type="StyleBox" uid="uid://pg5wg2qh71tr" path="res://assets/button_assets/hover.tres" id="2_0jhh2"]
+[ext_resource type="StyleBox" uid="uid://xbxb2y5tsm0n" path="res://assets/button_assets/pressed.tres" id="3_bpytg"]
+[ext_resource type="StyleBox" uid="uid://cysxdnhqb61sy" path="res://assets/button_assets/normal.tres" id="4_mh75o"]
+
+[node name="game over" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 8.0
+offset_right = 2.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1p8md")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -8.0
+offset_right = -2.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.254902, 0.254902, 0.254902, 0.286275)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -99.0
+offset_right = 22.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "Game Over"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.0
+offset_top = -37.0
+offset_right = 127.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = ExtResource("1_4puw3")
+theme_override_styles/hover = ExtResource("2_0jhh2")
+theme_override_styles/pressed = ExtResource("3_bpytg")
+theme_override_styles/normal = ExtResource("4_mh75o")
+text = "Restart"
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = ExtResource("1_4puw3")
+theme_override_styles/hover = ExtResource("2_0jhh2")
+theme_override_styles/pressed = ExtResource("3_bpytg")
+theme_override_styles/normal = ExtResource("4_mh75o")
+text = "Quit"
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

@@ -14,6 +14,14 @@ script = ExtResource("1_mwi0b")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.9, 0.9)
 
+[node name="game_over_container" type="Control" parent="Camera2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -639.0
+offset_top = -360.0
+offset_right = 641.0
+offset_bottom = 358.0
+
 [node name="player" parent="." instance=ExtResource("1_lioq3")]
 position = Vector2(0, -3)
 
@@ -59,6 +67,8 @@ script = ExtResource("4_i3ay4")
 [node name="ammo_timer" type="Timer" parent="pickups"]
 
 [node name="first_aid_timer" type="Timer" parent="pickups"]
+
+[node name="med_kit_timer" type="Timer" parent="pickups"]
 
 [node name="difficulty_timer" type="Timer" parent="."]
 wait_time = 30.0
