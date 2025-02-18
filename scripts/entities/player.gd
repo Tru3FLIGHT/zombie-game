@@ -44,7 +44,7 @@ func death_check() -> void:
 		game_ui.queue_free()
 	super()
 
-func 
+
 
 func take_damage(damage: int) -> void:
 	Health -= damage

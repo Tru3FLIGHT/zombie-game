@@ -22,6 +22,9 @@ offset_top = -360.0
 offset_right = 641.0
 offset_bottom = 358.0
 
+[node name="game_over" type="Timer" parent="."]
+one_shot = true
+
 [node name="player" parent="." instance=ExtResource("1_lioq3")]
 position = Vector2(0, -3)
 
@@ -77,6 +80,7 @@ autostart = true
 [node name="game_timer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="timeout" from="game_over" to="." method="_on_game_over_timeout"]
 [connection signal="timeout" from="enemies/zombie_timer" to="enemies" method="_on_zombie_timer_timeout"]
 [connection signal="timeout" from="difficulty_timer" to="." method="_on_difficulty_timer_timeout"]
 [connection signal="timeout" from="game_timer" to="." method="_on_game_timer_timeout"]

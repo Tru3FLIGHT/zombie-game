@@ -87,10 +87,13 @@ func gen_spawnpoint() -> Vector2:
 	return Vector2(randi_range(-X_OFFSET/2.0, X_OFFSET/2.0), randi_range(-Y_OFFSET/2.0, Y_OFFSET/2.0))
 
 func _on_game_over() -> void:
+	ammo_timer.stop()
+	first_aid_timer.stop()
+	med_kit_timer.stop()
 	for child in get_children():
 		if child is PickUp:
 			child.queue_free()
-		ammo_timer.stop()
+			
 
 func timer_setup() -> void:
 	#ammo timer
