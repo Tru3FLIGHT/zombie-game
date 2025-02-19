@@ -15,6 +15,7 @@ script = ExtResource("1_mwi0b")
 zoom = Vector2(0.9, 0.9)
 
 [node name="game_over_container" type="Control" parent="Camera2D"]
+z_index = 4
 layout_mode = 3
 anchors_preset = 0
 offset_left = -639.0
@@ -75,12 +76,9 @@ autostart = true
 
 [node name="pickups" type="Node" parent="."]
 script = ExtResource("4_i3ay4")
+base_spawn_chance = 50.0
 
-[node name="ammo_timer" type="Timer" parent="pickups"]
-
-[node name="first_aid_timer" type="Timer" parent="pickups"]
-
-[node name="med_kit_timer" type="Timer" parent="pickups"]
+[node name="pickup_timer" type="Timer" parent="pickups"]
 
 [node name="difficulty_timer" type="Timer" parent="."]
 wait_time = 30.0

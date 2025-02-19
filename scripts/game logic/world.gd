@@ -31,7 +31,7 @@ func _on_first_aid_pickup(amount:int) -> void:
 	player.Health += amount
 
 func _process(delta: float) -> void:
-	fps_count.text = str(1/delta)
+	fps_count.text = str(round(1/delta))
 
 func _on_med_kit_pickup(amount:int) -> void:
 	player.Health += amount
