@@ -462,6 +462,7 @@ color/colors/red = Color(1, 0, 0, 1)
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("death_state")]
 scale = Vector2(4, 4)
 script = ExtResource("1_kf212")
+shotgun_ammo = 2
 death_state = NodePath("state_machine/death")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]

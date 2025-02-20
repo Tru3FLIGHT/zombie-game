@@ -76,7 +76,7 @@ autostart = true
 
 [node name="pickups" type="Node" parent="."]
 script = ExtResource("4_i3ay4")
-base_spawn_chance = 50.0
+base_spawn_chance = 0.7
 
 [node name="pickup_timer" type="Timer" parent="pickups"]
 

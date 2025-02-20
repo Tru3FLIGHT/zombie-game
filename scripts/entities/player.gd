@@ -1,7 +1,10 @@
 class_name PlayerCharacter
 extends Moveable
 
+@export
 var ammo: int = 25
+@export
+var shotgun_ammo: int = 0
 var prev_frame_ammo: int = ammo
 var prev_frame_health: int = Health
 @warning_ignore("unused_signal")

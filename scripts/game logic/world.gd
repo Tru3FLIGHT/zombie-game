@@ -43,13 +43,17 @@ func _on_player_death() -> void:
 	game_over_screen.start()
 
 func _on_score(earned:int) -> void:
-	print(earned)
 	score += earned
+
+func _on_shotgun_ammo_pickup(amount:int) -> void:
+	print(amount)
+	player.shotgun_ammo += amount
 
 func _on_difficulty_timer_timeout() -> void:
 	difficulty += 1.0
 
 func _on_game_timer_timeout() -> void:
+	@warning_ignore("narrowing_conversion")
 	score += 1 * difficulty
 
 

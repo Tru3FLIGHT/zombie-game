@@ -1,8 +1,13 @@
 class_name PickUp
 extends Area2D
 
+
+var amount: int
+
 @export
-var amount: int = 10
+var minimum: int = 1
+@export
+var maximum: int = 10
 
 #freeing must be handled by inheriting classes
 func _on_area_entered(area: Area2D) -> void:
@@ -19,3 +24,6 @@ func player_interaction(_area: Area2D) -> void:
 func non_player_interaction(area: Area2D) -> void:
 	if area.get_parent() is Zombie:
 		queue_free()
+
+func rand_amount() -> void:
+	amount = randi() % (maximum - minimum) + minimum

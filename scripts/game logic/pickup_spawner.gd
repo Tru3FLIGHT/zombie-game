@@ -1,17 +1,19 @@
 extends spawner
 
 const pickup_distrobution = {
-	ammo_box: 0.34,
+	ammo_box: 0.33,
 	first_aid: 0.33,
-	med_kit: 0.33
+	med_kit: 0.30,
+	shotgun_ammo: 0.04
 	}
 
 @export
-var deadzone: float = 1
+var deadzone: float = .87
 
 const ammo_box = preload("res://scenes/ammo_box.tscn")
 const first_aid = preload("res://scenes/first_aid.tscn")
 const med_kit = preload("res://scenes/med_kit.tscn")
+const shotgun_ammo = preload("res://scenes/shotgun_ammo.tscn")
 
 @warning_ignore("unused_signal")
 signal ammo_pickup(amount: int)
@@ -19,6 +21,8 @@ signal ammo_pickup(amount: int)
 signal first_aid_pickup(amount: int)
 @warning_ignore("unused_signal")
 signal med_kit_pickup(amount: int)
+@warning_ignore("unused_signal")
+signal shotgun_ammo_pickup(amount: int)
 
 @onready var timer: Timer = $pickup_timer
 
@@ -30,6 +34,7 @@ func _ready() -> void:
 	connect("ammo_pickup", Callable(get_parent(), "_on_ammo_pickup"))
 	connect("first_aid_pickup", Callable(get_parent(), "_on_first_aid_pickup"))
 	connect("med_kit_pickup", Callable(get_parent(), "_on_med_kit_pickup"))
+	connect("shotgun_ammo_pickup", Callable(get_parent(), "_on_shotgun_ammo_pickup"))
 	get_parent().connect("game_over", Callable(self, "_on_game_over"))
 
 func _on_pickup_timer_timeout() -> void:
@@ -45,7 +50,7 @@ func gen_spawn() -> Vector2:
 	return Vector2(x, y)
 
 func scale_difficulty() -> float:
-	return -(difficulty / 100.0)*5
+	return clamp(-(difficulty / 100.0)*7, 0.5, 1)
 
 func _on_ammo_pickup(amount: int) -> void:
 	emit_signal("ammo_pickup", amount)
@@ -55,6 +60,10 @@ func _on_first_aid_pickup(amount: int) -> void:
 
 func _on_med_kit_pickup(amount: int) -> void:
 	emit_signal("med_kit_pickup", amount)
+
+func _on_shotgun_ammo_pickup(amount: int) -> void:
+	print("shotgun_ammo, pickup_spawner")
+	emit_signal("shotgun_ammo_pickup", amount)
 
 func _on_game_over() -> void:
 	timer.stop()

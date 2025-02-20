@@ -5,6 +5,7 @@ extends State
 @onready var area_2d: Area2D = $"../../Area2D"
 @onready var world: Node = $"."
 
+@warning_ignore("unused_signal")
 signal score(Score: int)
 
 func enter() -> void:

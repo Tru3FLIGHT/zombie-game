@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2i56yjwrkvg5"]
+
+[ext_resource type="Script" path="res://scripts/entities/shotgun_ammo.gd" id="1_cv1uo"]
+[ext_resource type="Texture2D" uid="uid://bdgand6gmg361" path="res://assets/pickups/ammo-shotgun 32px.png" id="2_mbcq4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkert"]
+
+[node name="shotgun_ammo" type="Area2D"]
+script = ExtResource("1_cv1uo")
+minimum = 4
+maximum = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("2_mbcq4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wkert")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
