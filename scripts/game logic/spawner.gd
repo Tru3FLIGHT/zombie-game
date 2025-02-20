@@ -42,7 +42,7 @@ func spawn_item(instance) -> void:
 
 #returns true if allowed to spawn an item
 func try_spawn() -> bool:
-	print(spawn_chance)
+	#print(spawn_chance)
 	return randf() < spawn_chance
 
 func gen_spawn() -> Vector2:
@@ -56,5 +56,3 @@ func instance_item(distrobution: Dictionary, fallback: PackedScene) -> void:
 	var instance = chosen.instantiate()
 	spawn_item(instance)
 	add_child(instance)
-
-

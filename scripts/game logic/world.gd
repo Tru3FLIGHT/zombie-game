@@ -22,6 +22,7 @@ var score: int = 0
 #this script will mainly be used to connect scripts lower in the tree
 
 func _ready() -> void:
+	print(difficulty)
 	pass
 
 func _on_ammo_pickup(amount:int) -> void:
@@ -46,11 +47,11 @@ func _on_score(earned:int) -> void:
 	score += earned
 
 func _on_shotgun_ammo_pickup(amount:int) -> void:
-	print(amount)
 	player.shotgun_ammo += amount
 
 func _on_difficulty_timer_timeout() -> void:
 	difficulty += 1.0
+	print(difficulty)
 
 func _on_game_timer_timeout() -> void:
 	@warning_ignore("narrowing_conversion")

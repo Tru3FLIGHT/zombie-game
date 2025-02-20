@@ -50,7 +50,15 @@ func gen_spawn() -> Vector2:
 	return Vector2(x, y)
 
 func scale_difficulty() -> float:
-	return clamp(-(difficulty / 100.0)*7, 0.5, 1)
+	return -clamp((difficulty / 100.0)*5, 0.05, 1)
+
+func _on_game_over() -> void:
+	timer.stop()
+	for child in get_children():
+		if child is PickUp:
+			child.queue_free()
+
+#signal passthroughs
 
 func _on_ammo_pickup(amount: int) -> void:
 	emit_signal("ammo_pickup", amount)
@@ -62,11 +70,4 @@ func _on_med_kit_pickup(amount: int) -> void:
 	emit_signal("med_kit_pickup", amount)
 
 func _on_shotgun_ammo_pickup(amount: int) -> void:
-	print("shotgun_ammo, pickup_spawner")
 	emit_signal("shotgun_ammo_pickup", amount)
-
-func _on_game_over() -> void:
-	timer.stop()
-	for child in get_children():
-		if child is PickUp:
-			child.queue_free()

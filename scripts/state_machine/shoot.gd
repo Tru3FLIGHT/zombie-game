@@ -7,6 +7,7 @@ var idle_state: State
 var move_state: State
 var has_ammo: bool
 var has_shotgun_ammo: bool
+@export
 var shotgun_spread : float = 5
 
 var bullet = load("res://scenes/bullet.tscn")
@@ -19,9 +20,11 @@ func enter() -> void:
 func process_physics(_delta:float) -> State:
 	parent.move_and_slide()
 	if has_shotgun_ammo:
-		instance_bullet(0)
-		instance_bullet(shotgun_spread)
-		instance_bullet(-shotgun_spread)
+		instance_bullet(0, true)
+		instance_bullet(shotgun_spread, true)
+		instance_bullet(shotgun_spread*2, true)
+		instance_bullet(-shotgun_spread*2, true)
+		instance_bullet(-shotgun_spread, true)
 		return determine_return()
 	if has_ammo:
 		instance_bullet(0)
@@ -48,10 +51,12 @@ func get_fire_direction(offset:float) -> Vector2:
 	direction = direction.rotated(deg_to_rad(offset))
 	return direction
 
-func instance_bullet(offset: float) -> void:
+func instance_bullet(offset: float, shotgun = false) -> void:
 	instance = bullet.instantiate()
 	instance.position = parent.global_position
 	instance.direction = get_fire_direction(offset)
+	if shotgun:
+		instance.is_shotgun = true
 	parent.get_parent().add_child(instance)
 	
 

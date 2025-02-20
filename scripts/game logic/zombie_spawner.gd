@@ -29,6 +29,12 @@ func _ready() -> void:
 	timer.start()
 	get_parent().connect("game_over", Callable(self, "_on_game_over"))
 
+func _process(delta: float) -> void:
+	super(delta)
+	
+
+
+
 func _on_zombie_timer_timeout() -> void:
 	randomize()
 	if try_spawn():
