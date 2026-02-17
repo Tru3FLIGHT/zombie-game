@@ -6,6 +6,8 @@ var move_state:State
 @export
 var area: Area2D
 
+#ello govner
+
 @warning_ignore("unused_signal")
 signal damage_event(damage: int)
 
